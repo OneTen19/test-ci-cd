@@ -3,12 +3,17 @@
 
 name: Build Test
 
-on:
 # main 브랜치에 push 되면 실행
+on:
   push:
     branches: [ "main" ]
   # pull_request:
   #   branches: [ "main" ]
+
+# 최신 push에 관한 CI 작업만 수행
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   build:
