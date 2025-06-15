@@ -1,0 +1,22 @@
+# This workflow will build a Swift project
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-swift
+
+name: Build Test
+
+on:
+# main 브랜치에 push 되면 실행
+  push:
+    branches: [ "main" ]
+  # pull_request:
+  #   branches: [ "main" ]
+
+jobs:
+  build:
+    # job이 실행될 환경 - macos15 / macos-latest는 버전에 따라 에러가 좀 난다고 함
+    runs-on: macos-15
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build
+      run: |
+        xcodebuild build -project test-ci-cd/Test-Study.xcodeproj
