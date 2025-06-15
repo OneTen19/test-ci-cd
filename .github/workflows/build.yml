@@ -16,7 +16,7 @@ jobs:
     runs-on: macos-15
 
     env:
-      SECRET_XCCONFIG_PATH: Project/app/Config.xcconfig
+      SECRET_XCCONFIG_PATH: Test-Study/Config.xcconfig
 
     steps:
     - name: Checkout repository
