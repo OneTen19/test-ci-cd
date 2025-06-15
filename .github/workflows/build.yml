@@ -16,7 +16,8 @@ jobs:
     runs-on: macos-15
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Build
-      run: |
-        xcodebuild build -project Desktop/Test-Study.xcodeproj
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      
+    - name: Build project 🛠️
+      run: xcodebuild build -project test-ci-cd/Test-Study.xcodeproj
