@@ -12,12 +12,26 @@ on:
 
 jobs:
   build:
+    name: Build iOS Project
     # job이 실행될 환경 - macos15 / macos-latest는 버전에 따라 에러가 좀 난다고 함
     runs-on: macos-15
+
+    env:
+      SECRET_XCCONFIG_PATH: Project/app/Config.xcconfig
 
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
+
+    # Config 에러 해결을 위해 Github Secret 사용
+    - name: Generate Config.xcconfig from secret
+      run: |
+        echo "${{ secrets.CONFIG_XCCONFIG }}" | base64 --decode > ${{ env.SECRET_XCCONFIG_PATH }}
       
-    - name: Build project 🛠️
-      run: xcodebuild build -project Test-Study.xcodeproj
+    - name: Build project (Simulator build to avoid codesign) 🛠️
+      run: |
+        xcodebuild clean build \
+        -project Test-Study.xcodeproj \
+        -scheme Test-Study \
+        -destination 'platform=iOS Simulator' \
+        CODE_SIGNING_ALLOWED=NO
