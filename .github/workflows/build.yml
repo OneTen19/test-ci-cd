@@ -36,5 +36,5 @@ jobs:
         xcodebuild clean build \
         -project Test-Study.xcodeproj \
         -scheme Test-Study \
-        -destination 'platform=iOS Simulator' \
+        -destination 'platform=iOS Simulator,name=iPhone SE (3rd generation),OS=18.5' \
         CODE_SIGNING_ALLOWED=NO
