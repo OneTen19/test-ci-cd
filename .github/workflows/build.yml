@@ -13,7 +13,6 @@ on:
 jobs:
   build:
     name: Build iOS Project
-    # job이 실행될 환경 - macos15 / macos-latest는 버전에 따라 에러가 좀 난다고 함
     runs-on: macos-15
 
     env:
@@ -23,10 +22,14 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v4
 
-    # Config 에러 해결을 위해 Github Secret 사용
+    # 🔧 경로 생성
+    - name: Create directory for Config.xcconfig
+      run: mkdir -p $(dirname "${{ env.SECRET_XCCONFIG_PATH }}")
+
+    # 🔐 Secret에서 config 파일 생성
     - name: Generate Config.xcconfig from secret
       run: |
-        echo "${{ secrets.CONFIG_XCCONFIG }}" | base64 --decode > ${{ env.SECRET_XCCONFIG_PATH }}
+        echo "${{ secrets.CONFIG_XCCONFIG }}" | base64 --decode > "${{ env.SECRET_XCCONFIG_PATH }}"
       
     - name: Build project (Simulator build to avoid codesign) 🛠️
       run: |
