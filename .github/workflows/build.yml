@@ -30,9 +30,6 @@ jobs:
     - name: Generate Config.xcconfig from secret
       run: |
         echo "${{ secrets.CONFIG_XCCONFIG }}" | base64 --decode > "${{ env.SECRET_XCCONFIG_PATH }}"
-
-    - name: Debug Config.xcconfig contents
-      run: cat "${{ env.SECRET_XCCONFIG_PATH }}"
       
     - name: Build project (Simulator build to avoid codesign) 🛠️
       run: |
